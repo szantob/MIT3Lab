@@ -1,7 +1,6 @@
 package auctionagents;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 
 import auctionframework.AbstractAgent;
 import auctionframework.Auction;
