@@ -1,7 +1,5 @@
 package auctionagents;
 
-import java.util.ArrayList;
-
 import auctionframework.AbstractAgent;
 import auctionframework.Auction;
 import auctionframework.AuctionItem;
@@ -31,29 +29,24 @@ public class Agent1 extends AbstractAgent {
      * @return              True if the agent bids for the current price.
      */
     public boolean ask(AuctionItem item) {
-    	ArrayList<AbstractAgent> agents = auction.getParticipants();
-    	//ArrayList<AuctionItem> items = auction.getItems();
-    	int difference = item.getPrice() - item.getStartingPrice();
-    	int gross = this.getMoney();
-    	for (AuctionItem myItem : this.getItems()) {
-			gross += myItem.getPrice();
-		}
-    	
+    	// 
     	if(item.getPrice() == item.getStartingPrice()) return true;
-    	if(item.getPrice() == item.getStartingPrice() *2) return false;
     	
+    	// Calculate this Agents total asset value
+    	int myTotalAssets = getMoney() + getTotalStartingPrice();
+    	
+    	// Calculate min and max total asset value of others
     	Integer min = null, max = null;
-    	for (AbstractAgent agent : agents) {
-    		int value = agent.getMoney();
-    		for (AuctionItem aitem : agent.getItems()) {
-				value += aitem.getStartingPrice();
-			}
+    	for (AbstractAgent agent : auction.getParticipants()) {
+    		int value = agent.getMoney() + agent.getTotalStartingPrice();
     		if (min == null || max == null) min = max = value;
     		else if(value < min) min = value;
     		else if(value > max) max = value;
 		}
-    	if(gross - difference < min) return false;
-    	else if(gross + difference > max) return true;
+    	
+    	// Choose strategy by compare to others
+    	int difference = item.getPrice() - item.getStartingPrice();
+    	if(myTotalAssets - difference < min) return false;
     	else return true;
     }
 }
