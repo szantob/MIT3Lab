@@ -31,29 +31,20 @@ public class Agent2  extends AbstractAgent {
      * @return              True if the agent bids for the current price.
      */
     public boolean ask(AuctionItem item) {
-    	ArrayList<AbstractAgent> agents = auction.getParticipants();
-    	//ArrayList<AuctionItem> items = auction.getItems();
-    	int difference = item.getPrice() - item.getStartingPrice();
-    	int gross = this.getMoney();
-    	for (AuctionItem myItem : this.getItems()) {
-			gross += myItem.getPrice();
-		}
-    	
-    	if(item.getPrice() == item.getStartingPrice()) return true;
-    	if(item.getPrice() == item.getStartingPrice() *2) return false;
+
+    	if(item.getPrice() < 1.05 * item.getStartingPrice()) return true;
     	
     	Integer min = null, max = null;
-    	for (AbstractAgent agent : agents) {
-    		int value = agent.getMoney();
-    		for (AuctionItem aitem : agent.getItems()) {
-				value += aitem.getStartingPrice();
-			}
+    	for (AbstractAgent agent : auction.getParticipants()) {
+    		int value = agent.getMoney() + agent.getTotalStartingPrice();
     		if (min == null || max == null) min = max = value;
     		else if(value < min) min = value;
     		else if(value > max) max = value;
 		}
-    	if(gross - difference < min) return false;
-    	else if(gross + difference > max) return true;
-    	else return true;
+    	int difference = item.getPrice() - item.getStartingPrice();
+    	
+    	if(max - difference > min) return true;
+    	
+    	return false;
     }
 }
