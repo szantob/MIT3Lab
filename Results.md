@@ -1,6 +1,6 @@
 **Agent1:**
-
-    public boolean ask(AuctionItem item) {
+```java
+public boolean ask(AuctionItem item) {
     	// Trivial case
     	if(item.getPrice() == item.getStartingPrice()) return true;
     	
@@ -22,10 +22,12 @@
     	if(myTotalAssets - difference < min) return false;
     	else return true;
     }
+```
 
 **Agent2:**
 
-    public boolean ask(AuctionItem item) {
+```java
+public boolean ask(AuctionItem item) {
     	// Trivial case
     	if(item.getPrice() < 1.05 * item.getStartingPrice()) return true;
     	
@@ -46,10 +48,11 @@
     	
     	return false;
     }
-
+```
 **Agent3:**
 
-    public boolean ask(AuctionItem item) {
+```java
+public boolean ask(AuctionItem item) {
     	// Trivial case
     	if(item.getPrice() == item.getStartingPrice()) return true;
     	
@@ -75,3 +78,4 @@
     	if(item.getPrice() < item.getStartingPrice() * overpriceFactor) return true;
     	return false;
     }
+```
