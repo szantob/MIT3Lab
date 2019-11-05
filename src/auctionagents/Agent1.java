@@ -35,17 +35,18 @@ public class Agent1 extends AbstractAgent {
     	// Calculate this Agents total asset value
     	int myTotalAssets = getMoney() + getTotalStartingPrice();
     	
-    	// Calculate min and max total asset value of others
-    	Integer min = null, max = null;
+    	// Calculate min total asset value of others
+    	Integer min = null;
     	for (AbstractAgent agent : auction.getParticipants()) {
     		int value = agent.getMoney() + agent.getTotalStartingPrice();
-    		if (min == null || max == null) min = max = value;
+    		if (min == null) min = value;
     		else if(value < min) min = value;
-    		else if(value > max) max = value;
 		}
     	
-    	// Choose strategy by compare to others
+    	// Calculate price difference
     	int difference = item.getPrice() - item.getStartingPrice();
+    	
+    	// Bid if not the worst 
     	if(myTotalAssets - difference < min) return false;
     	else return true;
     }

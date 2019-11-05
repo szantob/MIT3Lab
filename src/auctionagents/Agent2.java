@@ -29,9 +29,10 @@ public class Agent2  extends AbstractAgent {
      * @return              True if the agent bids for the current price.
      */
     public boolean ask(AuctionItem item) {
-
+    	// Trivial case
     	if(item.getPrice() < 1.05 * item.getStartingPrice()) return true;
     	
+    	// Calculate min and max total asset value of others
     	Integer min = null, max = null;
     	for (AbstractAgent agent : auction.getParticipants()) {
     		int value = agent.getMoney() + agent.getTotalStartingPrice();
@@ -39,8 +40,11 @@ public class Agent2  extends AbstractAgent {
     		else if(value < min) min = value;
     		else if(value > max) max = value;
 		}
+    	
+    	// Calculate price difference
     	int difference = item.getPrice() - item.getStartingPrice();
     	
+    	// Bid if Agent1 would bid
     	if(max - difference > min) return true;
     	
     	return false;

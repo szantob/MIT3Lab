@@ -31,17 +31,26 @@ public class Agent3  extends AbstractAgent {
     public boolean ask(AuctionItem item) {
     	// Trivial case
     	if(item.getPrice() == item.getStartingPrice()) return true;
+    	
+    	// Price ceiling for a bid
     	if(item.getPrice() == item.getStartingPrice() * 1.06) return false;
     	
-    	int valueLeft = 0;
+    	// Calculate total value of items
+    	int totalValue = 0;
     	for (AuctionItem auItem : auction.getItems()) {
-			/*if(auItem.getOwner() == null)*/valueLeft += auItem.getPrice();
+			totalValue += auItem.getPrice();
 		}
+    	
+    	// Calculate money left of all participants
     	int moneyLeft = 0;
     	for (AbstractAgent agent : auction.getParticipants()) {
 			moneyLeft += agent.getMoney();
 		}
-    	double overpriceFactor = moneyLeft / valueLeft ;
+    	
+    	// Calculate overprice factor based of money left of all participants and total value of items
+    	double overpriceFactor = moneyLeft / totalValue ;
+    	
+    	// Bid if overprice is not bigger than the overprice factor 
     	if(item.getPrice() < item.getStartingPrice() * overpriceFactor) return true;
     	return false;
     }
