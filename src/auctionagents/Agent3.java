@@ -29,7 +29,20 @@ public class Agent3  extends AbstractAgent {
      * @return              True if the agent bids for the current price.
      */
     public boolean ask(AuctionItem item) {
-        // The agent always bids (if it has enough money)
-        return true;
+    	// Trivial case
+    	if(item.getPrice() == item.getStartingPrice()) return true;
+    	if(item.getPrice() == item.getStartingPrice() * 1.06) return false;
+    	
+    	int valueLeft = 0;
+    	for (AuctionItem auItem : auction.getItems()) {
+			/*if(auItem.getOwner() == null)*/valueLeft += auItem.getPrice();
+		}
+    	int moneyLeft = 0;
+    	for (AbstractAgent agent : auction.getParticipants()) {
+			moneyLeft += agent.getMoney();
+		}
+    	double overpriceFactor = moneyLeft / valueLeft ;
+    	if(item.getPrice() < item.getStartingPrice() * overpriceFactor) return true;
+    	return false;
     }
 }

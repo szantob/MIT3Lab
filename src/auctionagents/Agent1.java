@@ -29,7 +29,7 @@ public class Agent1 extends AbstractAgent {
      * @return              True if the agent bids for the current price.
      */
     public boolean ask(AuctionItem item) {
-    	// 
+    	// Trivial case
     	if(item.getPrice() == item.getStartingPrice()) return true;
     	
     	// Calculate this Agents total asset value
