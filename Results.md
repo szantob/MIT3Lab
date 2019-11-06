@@ -1,10 +1,11 @@
-**Agent1:**
 
-Stratégia működése:
 
+## Agent1:
+
+**Stratégia működése:**
 Az ágens a többi ágens viselkedését figyeli, azokkal nagyjából azonos stratégiát próbál követni, úgy, hogy arra törekszik, hogy ne ő legyen a legrosszabb vagyoni helyzetben az árverés után.
 
-Forráskód:
+**Forráskód:**
 ```java
 public boolean ask(AuctionItem item) {
     	// Trivial case
@@ -29,17 +30,17 @@ public boolean ask(AuctionItem item) {
     	else return true;
     }
 ```
-Értékelés:
-
-Az ágensek egymás eredményeire figyelve nagyjából azonos eredménnyel zártak. Mivel egyiknek sem volt célja a másikat túlzott mértékben túllicitálni, a hatékonyság 100%-os volt.
+**Értékelés:**
+Az ágensek egymás eredményeire figyelve nagyjából azonos eredménnyel zártak. Mivel egyiknek sem volt célja a másikat túlzott mértékben túllicitálni, a hatékonyság 100%-os volt, így kevesebb erőforrás-töblettel rendelkező környezetben is jól teljesítettek (pl.: 4 x 0.25 esetén csak az utolsó nem kelt el).
 A stratégia minden beállítás mellett minden résztvevő közel 100%-os hatékonysághoz vezet amennyiben minden résztvevőnek ez a célja. Hibája, hogy mivel nagyban hagyatkozik a többiek stratégiájára, könnyen befolyásolható, és rávehető egy rossz stratégia követésére.
 
-**Agent2:**
+## Agent2:
 
-Stratégia működése:
+**Stratégia működése:**
+Az Agent1-ek közel 100%-os hatásfoka után az Agent2 esetében a hatásfokjavítás nem volt opció, így két stratégia maradt. Vagy el kell nyerni az Agent1-ek elől az aukciókat, vagy rá kell venni őket, hogy nagyon rossz hatásfokkal működjenek.
+Az Agent2 mindig úgy licitál, hogy a legtöbb vagyonnal rendelkező ágens még pont hajlandó legyen megvenni, ha Agent1 stratégiát követ. Így az adott körben vagy egy Agent1 nyer, a legnagyobb veszteséggel, amire még hajlandó, vagy egy Agent2. Tehát az Agent1 ágánsek vagy vesztenek, vagy az álltaluk legkisebb elfogadható hatásfokon nyernek.
 
-Forráskód:
-
+**Forráskód:**
 ```java
 public boolean ask(AuctionItem item) {
     	// Trivial case
@@ -63,13 +64,14 @@ public boolean ask(AuctionItem item) {
     	return false;
     }
 ```
-Értékelés:
+**Értékelés:**
+A stratégia miatt a hatásfok értelemszerűen csökkent, az Agent1-ek  hatásfoka 87-88%-ra esett, az Agent2-ké 92-93% körül mozgott. Az elnyert vagyon közel kétszerese lett az Agent1-ek által elnyertnek. A stratégia hátránya, hogy gyorsabban fogyasztja az erőforrásokat, így szűkösebb körülmények között, miután az Agent2-k erőforrásai elfogytak, az Agent1-ek be tudják hozni lemaradásukat.
 
-**Agent3:**
+## Agent3:
 
-Stratégia működése:
+**Stratégia működése:**
 
-Forráskód:
+**Forráskód:**
 ```java
 public boolean ask(AuctionItem item) {
     	// Trivial case
@@ -98,4 +100,4 @@ public boolean ask(AuctionItem item) {
     	return false;
     }
 ```
-Értékelés:
+**Értékelés:**
