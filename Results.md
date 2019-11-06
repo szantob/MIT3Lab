@@ -1,4 +1,10 @@
 **Agent1:**
+
+Stratégia működése:
+
+Az ágens a többi ágens viselkedését figyeli, azokkal nagyjából azonos stratégiát próbál követni, úgy, hogy arra törekszik, hogy ne ő legyen a legrosszabb vagyoni helyzetben az árverés után.
+
+Forráskód:
 ```java
 public boolean ask(AuctionItem item) {
     	// Trivial case
@@ -23,8 +29,16 @@ public boolean ask(AuctionItem item) {
     	else return true;
     }
 ```
+Értékelés:
+
+Az ágensek egymás eredményeire figyelve nagyjából azonos eredménnyel zártak. Mivel egyiknek sem volt célja a másikat túlzott mértékben túllicitálni, a hatékonyság 100%-os volt.
+A stratégia minden beállítás mellett minden résztvevő közel 100%-os hatékonysághoz vezet amennyiben minden résztvevőnek ez a célja. Hibája, hogy mivel nagyban hagyatkozik a többiek stratégiájára, könnyen befolyásolható, és rávehető egy rossz stratégia követésére.
 
 **Agent2:**
+
+Stratégia működése:
+
+Forráskód:
 
 ```java
 public boolean ask(AuctionItem item) {
@@ -49,8 +63,13 @@ public boolean ask(AuctionItem item) {
     	return false;
     }
 ```
+Értékelés:
+
 **Agent3:**
 
+Stratégia működése:
+
+Forráskód:
 ```java
 public boolean ask(AuctionItem item) {
     	// Trivial case
@@ -79,3 +98,4 @@ public boolean ask(AuctionItem item) {
     	return false;
     }
 ```
+Értékelés:
